@@ -5,7 +5,7 @@ import pandas as pd
 
 st.title('Loan Calculator')
 
-st.write('This calculator will help you to calculate the monthly payment and total interest for a loan.')
+st.write('This loan calculator enable user to calculate the monthly/weekly/daily repayment and total interest for a loan.')
 
 st.markdown("""---""")
 
