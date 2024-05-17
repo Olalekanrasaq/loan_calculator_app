@@ -21,8 +21,6 @@ if loan_type == 'Monthly':
 # input number of weeks if loan type is bi-weekly
 if loan_type == 'Bi-weekly':
     loan_term = st.sidebar.number_input('Number of Weeks', min_value=1, value=52)
-    if loan_term % 2 != 0:
-        raise Exception(f"Bi-weekly loan accept only even number as number of weeks. {loan_term} is not an even number")
 
 # input number of weeks if loan type is weekly
 if loan_type == 'Weekly':
@@ -162,22 +160,25 @@ if st.sidebar.button('Calculate'):
 
     if loan_type == 'Bi-weekly':
         st.subheader("Bi-weekly Loan Calculations")
-        st.write(f"Bi-weekly Interest Rate: **{bi_weekly_interest_rate:.2f}**%")
-        st.write(f"Processing Fee: #**{processing_fee:,.2f}**")
-
-        # dataframes for the loan amount
-        df = bi_weekly_loan_dataframe(loan_term, loan_amount, round(loan_amount / (loan_term*0.5), 2), bi_weekly_interest_rate)
-        st.write(f"Total Interest: #**{df['Interest'].sum():,.2f}**")
-        st.write(f"Total Payable: #**{(loan_amount + df['Interest'].sum()):,.2f}**")
-        eff_monthly_interest_rate = (4 / loan_term) * (df['Interest'].sum() / loan_amount * 100)
-        st.write(f"Effective Monthly Interest Rate (4 Weeks): **{eff_monthly_interest_rate:.2f}**%")
-        eff_biweekly_interest_rate = eff_monthly_interest_rate / 2
-        st.write(f"Effective Bi-weekly Interest Rate: **{eff_biweekly_interest_rate:.2f}**%")
-        st.write(f"Effective Total Interest Rate: **{(df['Interest'].sum() / loan_amount * 100):.2f}**%")
-        
-        st.markdown("""---""")
-        st.write(df)
-
+        try:
+            st.write(f"Bi-weekly Interest Rate: **{bi_weekly_interest_rate:.2f}**%")
+            st.write(f"Processing Fee: #**{processing_fee:,.2f}**")
+    
+            # dataframes for the loan amount
+            df = bi_weekly_loan_dataframe(loan_term, loan_amount, round(loan_amount / (loan_term*0.5), 2), bi_weekly_interest_rate)
+            st.write(f"Total Interest: #**{df['Interest'].sum():,.2f}**")
+            st.write(f"Total Payable: #**{(loan_amount + df['Interest'].sum()):,.2f}**")
+            eff_monthly_interest_rate = (4 / loan_term) * (df['Interest'].sum() / loan_amount * 100)
+            st.write(f"Effective Monthly Interest Rate (4 Weeks): **{eff_monthly_interest_rate:.2f}**%")
+            eff_biweekly_interest_rate = eff_monthly_interest_rate / 2
+            st.write(f"Effective Bi-weekly Interest Rate: **{eff_biweekly_interest_rate:.2f}**%")
+            st.write(f"Effective Total Interest Rate: **{(df['Interest'].sum() / loan_amount * 100):.2f}**%")
+            
+            st.markdown("""---""")
+            st.write(df)
+        except ValueError:
+            st.error("Invalid number of weeks. Bi-weekly loan accept only even number of weeks.")
+    
     if loan_type == 'Weekly':
         st.subheader("Weekly Loan Calculations")
         st.write(f"7 days Interest Rate: **{weekly_interest_rate:.2f}**%")
