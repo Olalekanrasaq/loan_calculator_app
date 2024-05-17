@@ -71,6 +71,15 @@ def month_loan_dataframe(loan_term, loan_amount, decrease_rate, monthly_interest
 
     # Create a DataFrame from the dictionary and remove index
     df = pd.DataFrame(data, index=pd.Index(range(1, loan_term + 1), name="Month"))
+    # Calculate the sum of numerical columns
+    sum_row = df.select_dtypes(include='number').sum()
+
+    # Convert the sum_row to a DataFrame and add a label for the non-numeric column
+    sum_row = sum_row.to_frame().T
+    sum_row['Month'] = 'Total'  # Add a label for the non-numeric column if necessary
+    
+    # Concatenate the original DataFrame with the sum row
+    df = pd.concat([df, sum_row], ignore_index=True)
     return df
 
 # create a dataframe for the bi-weekly loan amount
