@@ -76,7 +76,6 @@ def month_loan_dataframe(loan_term, loan_amount, decrease_rate, monthly_interest
 
     # Convert the sum_row to a DataFrame and add a label for the non-numeric column
     sum_row = sum_row.to_frame().T
-    sum_row['Month'] = 'Total'  # Add a label for the non-numeric column if necessary
     
     # Concatenate the original DataFrame with the sum row
     df = pd.concat([df, sum_row], ignore_index=True)
