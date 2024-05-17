@@ -21,6 +21,8 @@ if loan_type == 'Monthly':
 # input number of weeks if loan type is bi-weekly
 if loan_type == 'Bi-weekly':
     loan_term = st.sidebar.number_input('Number of Weeks', min_value=1, value=52)
+    if loan_term % 2 != 0:
+        raise Exception(f"Bi-weekly loan accept only even number as number of weeks. {loan_term} is not an even number")
 
 # input number of weeks if loan type is weekly
 if loan_type == 'Weekly':
@@ -142,7 +144,7 @@ def daily_loan_dataframe(loan_term, loan_amount, decrease_rate, daily_interest_r
 # input a calculate button
 if st.sidebar.button('Calculate'):
     if loan_type == 'Monthly':
-        st.subheader("Monthly Loan Parameters")
+        st.subheader("Monthly Loan Calculations")
         st.write(f"Monthly Interest Rate: **{monthly_interest_rate:.2f}**%")
         st.write(f"Processing Fee: #**{processing_fee:,.2f}**")
 
@@ -159,7 +161,7 @@ if st.sidebar.button('Calculate'):
         st.write(df)
 
     if loan_type == 'Bi-weekly':
-        st.subheader("Bi-weekly Loan Parameters")
+        st.subheader("Bi-weekly Loan Calculations")
         st.write(f"Bi-weekly Interest Rate: **{bi_weekly_interest_rate:.2f}**%")
         st.write(f"Processing Fee: #**{processing_fee:,.2f}**")
 
@@ -177,7 +179,7 @@ if st.sidebar.button('Calculate'):
         st.write(df)
 
     if loan_type == 'Weekly':
-        st.subheader("Weekly Loan Parameters")
+        st.subheader("Weekly Loan Calculations")
         st.write(f"7 days Interest Rate: **{weekly_interest_rate:.2f}**%")
         st.write(f"Processing Fee: #**{processing_fee:,.2f}**")
 
@@ -195,7 +197,7 @@ if st.sidebar.button('Calculate'):
         st.write(df)
     
     if loan_type == 'Daily':
-        st.subheader("Daily Loan Parameters")
+        st.subheader("Daily Loan Calculations")
         st.write(f"Processing Fee: #**{processing_fee:,.2f}**")
         st.write(f"7 days Interest Rate: **{(daily_interest_rate*7):.2f}**%")
 
