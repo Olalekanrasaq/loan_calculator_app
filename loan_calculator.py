@@ -5,7 +5,9 @@ import pandas as pd
 
 st.title('Loan Calculator')
 
-st.write('This loan calculator enable user to calculate the monthly/weekly/daily repayment and total interest for a loan.')
+st.write('''This loan calculator enable user to calculate the monthly/weekly/daily repayment and total interest for a loan. 
+To use this app, click on the > sign at the top left corner of the app to enter the loan details. Click on calculate button after entering loan details and then click on x sign at the top to view the output loan calculations. 
+''')
 
 st.markdown("""---""")
 
