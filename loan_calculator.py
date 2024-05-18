@@ -153,7 +153,8 @@ if st.sidebar.button('Calculate'):
         st.write(f"Processing Fee: #**{processing_fee:,.2f}**")
 
         # dataframes for the loan amount
-        df = month_loan_dataframe(loan_term, loan_amount, round(loan_amount / loan_term, 2), monthly_interest_rate)
+        dfs = month_loan_dataframe(loan_term, loan_amount, round(loan_amount / loan_term, 2), monthly_interest_rate)
+        df = dfs.iloc[:-1]
         st.write(f"Total Interest: #**{df['Interest'].sum():,.2f}**")
         st.write(f"Total Payable: #**{(loan_amount + df['Interest'].sum()):,.2f}**")
         annual_interest_rate = (12 / loan_term) * (df['Interest'].sum() / loan_amount * 100)
@@ -162,7 +163,7 @@ if st.sidebar.button('Calculate'):
         st.write(f"Effective Monthly Interest Rate: **{eff_monthly_interest_rate:.2f}**%")
         
         st.markdown("""---""")
-        st.write(df)
+        st.write(dfs)
 
     if loan_type == 'Bi-weekly':
         st.subheader("Bi-weekly Loan Calculations")
@@ -171,7 +172,8 @@ if st.sidebar.button('Calculate'):
             st.write(f"Processing Fee: #**{processing_fee:,.2f}**")
     
             # dataframes for the loan amount
-            df = bi_weekly_loan_dataframe(loan_term, loan_amount, round(loan_amount / (loan_term*0.5), 2), bi_weekly_interest_rate)
+            dfs = bi_weekly_loan_dataframe(loan_term, loan_amount, round(loan_amount / (loan_term*0.5), 2), bi_weekly_interest_rate)
+            df = dfs.iloc[:-1]
             st.write(f"Total Interest: #**{df['Interest'].sum():,.2f}**")
             st.write(f"Total Payable: #**{(loan_amount + df['Interest'].sum()):,.2f}**")
             eff_monthly_interest_rate = (4 / loan_term) * (df['Interest'].sum() / loan_amount * 100)
@@ -181,7 +183,7 @@ if st.sidebar.button('Calculate'):
             st.write(f"Effective Total Interest Rate: **{(df['Interest'].sum() / loan_amount * 100):.2f}**%")
             
             st.markdown("""---""")
-            st.write(df)
+            st.write(dfs)
         except ValueError:
             st.error("Invalid number of weeks. Bi-weekly loan accept only even number of weeks.")
     
@@ -191,7 +193,8 @@ if st.sidebar.button('Calculate'):
         st.write(f"Processing Fee: #**{processing_fee:,.2f}**")
 
         # dataframes for the loan amount
-        df = weekly_loan_dataframe(loan_term, loan_amount, round(loan_amount / loan_term, 2), weekly_interest_rate)
+        dfs = weekly_loan_dataframe(loan_term, loan_amount, round(loan_amount / loan_term, 2), weekly_interest_rate)
+        df = dfs.iloc[:-1]
         st.write(f"Total Interest: #**{df['Interest'].sum():,.2f}**")
         st.write(f"Total Payable: #**{(loan_amount + df['Interest'].sum()):,.2f}**")
         eff_monthly_interest_rate = (4 / loan_term) * (df['Interest'].sum() / loan_amount * 100)
@@ -201,7 +204,7 @@ if st.sidebar.button('Calculate'):
         st.write(f"Effective Total Interest Rate: **{(df['Interest'].sum() / loan_amount * 100):.2f}**%")
         
         st.markdown("""---""")
-        st.write(df)
+        st.write(dfs)
     
     if loan_type == 'Daily':
         st.subheader("Daily Loan Calculations")
@@ -209,7 +212,8 @@ if st.sidebar.button('Calculate'):
         st.write(f"7 days Interest Rate: **{(daily_interest_rate*7):.2f}**%")
 
         # dataframes for the loan amount
-        df = daily_loan_dataframe(loan_term, loan_amount, round(loan_amount / loan_term, 2), daily_interest_rate)
+        dfs = daily_loan_dataframe(loan_term, loan_amount, round(loan_amount / loan_term, 2), daily_interest_rate)
+        df = dfs.iloc[:-1]
         st.write(f"Total Interest: #**{df['Interest'].sum():,.2f}**")
         st.write(f"Total Payable: #**{(loan_amount + df['Interest'].sum()):,.2f}**")
         eff_monthly_interest_rate = (4 / loan_term) * (df['Interest'].sum() / loan_amount * 100)
@@ -219,7 +223,7 @@ if st.sidebar.button('Calculate'):
         st.write(f"Effective Total Interest Rate: **{(df['Interest'].sum() / loan_amount * 100):.2f}**%")
         
         st.markdown("""---""")
-        st.write(df)
+        st.write(dfs)
     
 
 
