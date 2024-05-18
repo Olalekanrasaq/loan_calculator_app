@@ -73,6 +73,7 @@ def month_loan_dataframe(loan_term, loan_amount, decrease_rate, monthly_interest
 
     # Create a DataFrame from the dictionary and remove index
     df = pd.DataFrame(data, index=pd.Index(range(1, loan_term + 1), name="Month"))
+    df.loc['Total'] = df[["Interest", "Total Repayment"]].sum()
     return df
 
 # create a dataframe for the bi-weekly loan amount
@@ -95,6 +96,7 @@ def bi_weekly_loan_dataframe(loan_term, loan_amount, decrease_rate, bi_weekly_in
 
     # Create a DataFrame from the dictionary and remove index
     df = pd.DataFrame(data, index=pd.Index(range(2, loan_term + 1, 2), name="Week"))
+    df.loc['Total'] = df[["Interest", "Total Repayment"]].sum()
     return df
 
 # create a dataframe for the weekly loan amount
@@ -117,6 +119,7 @@ def weekly_loan_dataframe(loan_term, loan_amount, decrease_rate, weekly_interest
 
     # Create a DataFrame from the dictionary and remove index
     df = pd.DataFrame(data, index=pd.Index(range(1, loan_term + 1), name="Week"))
+    df.loc['Total'] = df[["Interest", "Total Repayment"]].sum()
     return df
 
 # create a dataframe for the daily loan amount
@@ -139,6 +142,7 @@ def daily_loan_dataframe(loan_term, loan_amount, decrease_rate, daily_interest_r
 
     # Create a DataFrame from the dictionary and remove index
     df = pd.DataFrame(data, index=pd.Index(range(1, loan_term + 1), name="Day"))
+    df.loc['Total'] = df[["Interest", "Total Repayment"]].sum()
     return df
 
 # input a calculate button
