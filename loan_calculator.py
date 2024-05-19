@@ -39,7 +39,7 @@ loan_amount = st.sidebar.text_input('Loan Amount (#)', '0')
 loan_amount = int(loan_amount.replace(',', ''))
 
 # input daily interest rate in a float format
-daily_interest_rate = st.sidebar.number_input('Daily Interest Rate (%)', min_value=0.000, value=0.10, format="0.3f")
+daily_interest_rate = st.sidebar.number_input('Daily Interest Rate (%)', min_value=0.000, value=0.10, format="%0.3f")
 
 # calculate the monthly interest rate
 monthly_interest_rate = daily_interest_rate * 30
